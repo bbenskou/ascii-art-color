@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -16,9 +17,17 @@ func GeneratePattern(arg string, cont string) {
 	for i := 0; i < len(SplitArg); i++ {
 		for l := 0; l < 8; l++ {
 			for j := 0; j < len(SplitArg[i]); j++ {
-				if  strings.ContainsAny(string(SplitArg[i][j]),os.Args[2]) {
+				if strings.ContainsAny(string(SplitArg[i][j]), os.Args[2]) {
 					SplitCharacters := strings.Split(string(SplitFile[SplitArg[i][j]-32]), "\n")
-					Color(SplitCharacters, "Red")
+					col := regexp.MustCompile(`^--color=(Red|Blue|Yellow)$`)
+					test := col.FindString(os.Args[1])
+					col1 := regexp.MustCompile(`(Red|Blue|Yellow)`)
+					test1 := col1.FindString(test)
+				/*	if os.Args[2] != test {
+						fmt.Println("--color=<color>")
+						os.Exit(1)
+					}*/
+					Color(SplitCharacters, test1)
 					result[i][l] += SplitCharacters[l]
 				} else {
 					SplitCharacters := strings.Split(string(SplitFile[SplitArg[i][j]-32]), "\n")
