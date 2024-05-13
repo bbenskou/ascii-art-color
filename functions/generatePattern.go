@@ -19,14 +19,14 @@ func GeneratePattern(arg string, cont string) {
 			for j := 0; j < len(SplitArg[i]); j++ {
 				if strings.ContainsAny(string(SplitArg[i][j]), os.Args[2]) {
 					SplitCharacters := strings.Split(string(SplitFile[SplitArg[i][j]-32]), "\n")
-					col := regexp.MustCompile(`^--color=(Red|Blue|Yellow)$`)
+					col := regexp.MustCompile(`^--color=(Red|Blue|Yellow|Green|Magenta|Cyan|Gray)$`)
 					test := col.FindString(os.Args[1])
-					col1 := regexp.MustCompile(`(Red|Blue|Yellow)`)
+					col1 := regexp.MustCompile(`(Red|Blue|Yellow|Green|Magenta|Cyan|Gray)`)
 					test1 := col1.FindString(test)
-				/*	if os.Args[2] != test {
+					if !col.MatchString(os.Args[1]) {
 						fmt.Println("--color=<color>")
 						os.Exit(1)
-					}*/
+					}
 					Color(SplitCharacters, test1)
 					result[i][l] += SplitCharacters[l]
 				} else {
